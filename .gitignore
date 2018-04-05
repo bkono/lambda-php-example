@@ -1,0 +1,42 @@
+application/configs/application.ini
+*.application.ini
+data/*
+import/*
+nbproject/*
+tmp/*
+*.bak
+library/Zend/
+
+### Development ###
+import_local.php
+
+### Customization ###
+public/css/customization.css
+
+## Node ##
+/node_modules
+
+### PhpStorm ###
+*.iml
+.idea/
+
+### ZendStudio ###
+.buildpath
+.project
+.settings/
+
+### Composer ###
+composer.phar
+/vendor/
+
+### Misc ###
+public/etc
+tags.tmp
+
+### Test ###
+*-test.php
+### local tests scripts ###
+import-test.php
+
+### Lambda artifacts ###
+/build/out/*

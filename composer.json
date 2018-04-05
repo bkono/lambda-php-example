@@ -1,0 +1,14 @@
+{
+    "name": "bkono/lambda-php-example",
+    "type": "project",
+    "require": {
+        "php": "5.6.33",
+        "monolog/monolog": "1.23"
+    },
+    "authors": [
+        {
+            "name": "Bryan Konowitz",
+            "email": "bryan@kono.sh"
+        }
+    ]
+}
