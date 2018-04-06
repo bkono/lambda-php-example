@@ -1,18 +1,3 @@
-application/configs/application.ini
-*.application.ini
-data/*
-import/*
-nbproject/*
-tmp/*
-*.bak
-library/Zend/
-
-### Development ###
-import_local.php
-
-### Customization ###
-public/css/customization.css
-
 ## Node ##
 /node_modules
 
