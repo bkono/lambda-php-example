@@ -16,11 +16,10 @@ phases:
       - docker build -t $IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION .
       - docker tag $IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
       - docker run -v $(pwd)/build/out:/out:rw $IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
-      - ls -alh build/out/
-      - ls -alh
   post_build:
     commands:
-      # - echo Done building, pushing the image...
+      - echo Done building, copying the artifact to s3...
+      - aws s3 cp build/out/app.zip s3://${ARTIFACT_S3_BUCKET}/BuildOutput/app-$CODEBUILD_RESOLVED_SOURCE_VERSION.zip
       # - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
       - echo Build completed on `date`
 artifcats:
