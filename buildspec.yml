@@ -19,7 +19,7 @@ phases:
   post_build:
     commands:
       - echo Done building, copying the artifact to s3...
-      - aws s3 cp build/out/app.zip s3://${ARTIFACT_S3_BUCKET}/BuildOutput/app-$CODEBUILD_RESOLVED_SOURCE_VERSION.zip
+      - aws s3 cp build/out/app.zip $S3_OUTPUT_LOCATION/app-$CODEBUILD_RESOLVED_SOURCE_VERSION.zip
       # - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
       - echo Build completed on `date`
 artifcats:
