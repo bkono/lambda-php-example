@@ -5,22 +5,22 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region $AWS_REGION)
-      - echo catting the aws_cred_export
-      - echo "env...."
-      - env
   build:
     commands:
       - echo Build started on `date`
       - echo Building docker image...
+      - chmod +x docker_entrypoint.sh
       - docker build -t $IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION .
       - docker tag $IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
-      - docker run -v $(pwd)/build/out:/out $IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - docker run -v $(pwd)/build/out:/out:rw $IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
   post_build:
     commands:
-      # - echo Done building, pushing the image...
-      # - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - echo Exploding output zip for ease of use within CodePipeline zip output
+      - cd build/out/
+      - unzip app.zip && rm app.zip
       - echo Build completed on `date`
-artifcats:
+artifacts:
   files:
-    - build/out/*
-  discard-paths: yes
+    - '**/*'
+  discard-paths: no
+  base-directory: build/out
