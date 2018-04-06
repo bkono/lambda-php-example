@@ -15,8 +15,12 @@ phases:
       - docker run -v $(pwd)/build/out:/out:rw $IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
   post_build:
     commands:
+      - echo Exploding output zip for ease of within CodePipeline zip output
+      - cd build/out/
+      - unzip app.zip && rm app.zip
       - echo Build completed on `date`
 artifacts:
   files:
-    - 'build/out/app.zip'
-  discard-paths: yes
+    - '**/*'
+  discard-paths: no
+  base-directory: build/out
