@@ -5,9 +5,6 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region $AWS_REGION)
-      - echo catting the aws_cred_export
-      - echo "env...."
-      - env
   build:
     commands:
       - echo Build started on `date`
@@ -18,9 +15,6 @@ phases:
       - docker run -v $(pwd)/build/out:/out:rw $IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
   post_build:
     commands:
-      # - echo Done building, copying the artifact to s3...
-      # - aws s3 cp build/out/app.zip $S3_OUTPUT_LOCATION/app-$CODEBUILD_RESOLVED_SOURCE_VERSION.zip
-      # - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
       - echo Build completed on `date`
 artifacts:
   files:
