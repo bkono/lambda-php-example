@@ -25,5 +25,5 @@ phases:
       - echo Build completed on `date`
 artifcats:
   files:
-    - build/out/*
+    - 'build/out/app.zip'
   discard-paths: yes
